@@ -37,6 +37,15 @@ export default function ExpenseForm() {
             return;
         }
         dispatch({type: 'ADD_EXPENSE', payload: {expense}});
+
+        // reniciar el state
+        setExpense({
+            amount: 0,
+            expenseName: '',
+            category: '',
+            date: new Date()
+        });
+        setError('');
     };
     return (
         <form className="space-y-5" onSubmit={handleSubmit}>

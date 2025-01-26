@@ -1,18 +1,18 @@
 import React from 'react'
 import { formatCurrency } from '../utils';
 
-interface AmountDisplayProps{
-    label: string;
-    amount: number;
-  
+interface AmountDisplayProps {
+  label?: string;
+  amount: number;
+
 }
-export default function AmountDisplay({label, amount}: AmountDisplayProps) {
+export default function AmountDisplay({ label, amount }: AmountDisplayProps) {
   return (
     <p className='text-2xl text-blue-600 font-bold'>
-        {label + ': ' }
-        <span className='font-black text-black'>
+      {label && `${label}: `}
+      <span className='font-black text-black'>
         {formatCurrency(amount)}
-        </span>
+      </span>
     </p>
   )
 }

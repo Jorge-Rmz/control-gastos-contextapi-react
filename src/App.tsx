@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import BudgetForm from "./componets/BudgetForm"
-import { useBudget } from "./hooks/useBudget"
+import BudgetForm from "./componets/BudgetForm";
+import { useBudget } from "./hooks/useBudget";
 import BudgetTraker from "./componets/BudgetTraker";
 import ExpenseModal from "./componets/ExpenseModal";
-import ColorTabs from "./componets/ColorTabs";
+import ExpenseList from "./componets/ExpenseList";
 
 function App() {
   const { state } = useBudget();
@@ -32,6 +32,7 @@ function App() {
       </div>
       {isValidBudget && (
         <main className="max-w-3xl mx-auto py-10">
+          <ExpenseList/>
 
           <ExpenseModal />
 
