@@ -1,42 +1,59 @@
+import { DraftExpense, Expense } from "../interfaces"
+import { v4 as uuidv4 } from "uuid";
 
 export type BudgetActions =
     { type: 'ADD_BUDGET', payload: { budget: number } } |
-    { type: 'SHOW_MODAL'} |
-    { type: 'HIDE_MODAL'} 
+    { type: 'SHOW_MODAL' } |
+    { type: 'HIDE_MODAL' } |
+    { type: 'ADD_EXPENSE', payload: { expense: DraftExpense } }
 
 export type BudgetState = {
     budget: number,
-    modal:boolean,
+    modal: boolean,
+    expenses: Expense[]
 }
 
 export const initialState: BudgetState = {
     budget: 0,
     modal: false,
+    expenses: [],
 }
 
-
-export const budgetReducer =( 
+const createExpense = (expense: DraftExpense) : Expense=> {
+return {
+    ...expense,
+    id: uuidv4()
+}
+}
+export const budgetReducer = (
     state: BudgetState,
-    action: BudgetActions) => { 
+    action: BudgetActions) => {
 
-        if(action.type === 'ADD_BUDGET') {
-            return {
-                ...state,
-                budget:  action.payload.budget
-            }
+    if (action.type === 'ADD_BUDGET') {
+        return {
+            ...state,
+            budget: action.payload.budget
         }
-        if(action.type ===  'SHOW_MODAL') {
-            return {
-                ...state,
-                modal: true,
-            }
-        }
-        if(action.type ===  'HIDE_MODAL') {
-            return {
-                ...state,
-                modal: false,
-            }
-        }
-        return state;
     }
+    if (action.type === 'SHOW_MODAL') {
+        return {
+            ...state,
+            modal: true,
+        }
+    }
+    if (action.type === 'HIDE_MODAL') {
+        return {
+            ...state,
+            modal: false,
+        }
+    }
+    if (action.type === 'ADD_EXPENSE') {
+        const expense = createExpense(action.payload.expense);
+        return {
+            ...state,
+            expenses: [...state.expenses, expense ]
+        }
+    }
+    return state;
+}
 
